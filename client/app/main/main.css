@@ -28,3 +28,28 @@
     margin-top: 70px;
     border-top: 1px solid #E5E5E5;
 }
+
+#obi {
+ 	position: relative;
+   width: 300px;
+   margin: 30px auto 0;
+ }
+ #obi p {
+	background-color: yellow;
+	width: 300px;
+	margin: 0px;
+	position: absolute;
+	z-index: 100;
+	height: 140px;
+	box-sizing: border-box;
+	padding: 20px;
+	font-weight: bold;
+	font-size: 22px;
+	line-height: 100%;
+  bottom: 0;
+  overflow: hidden;
+ }
+ #obi img {
+   width: 300px;
+   margin: 0 auto;
+ }

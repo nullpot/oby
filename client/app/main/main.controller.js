@@ -2,23 +2,41 @@
 
 angular.module('obyApp')
   .controller('MainCtrl', function ($scope, $http, socket) {
-    $scope.awesomeThings = [];
+    /*もでる*/
+    $scope.tweet = {};
+    $scope.books = [];
+    $scope.book = {};
+    $scope.amazonQuery = '';
 
+/*
     $http.get('/api/things').success(function(awesomeThings) {
       $scope.awesomeThings = awesomeThings;
       socket.syncUpdates('thing', $scope.awesomeThings);
     });
-
-    $scope.addThing = function() {
-      if($scope.newThing === '') {
+*/
+    $scope.searchBook = function() {
+      if($scope.amazonQuery === '') {
         return;
       }
-      $http.post('/api/things', { name: $scope.newThing });
-      $scope.newThing = '';
+      $http.get('http://atogaki.net/book_search/json/' + $scope.amazonQuery ).
+      success(function(data){
+        $scope.books = data;
+        $scope.amazonQuery = '';
+        $scope.book = {};
+        $scope.tweet = {};
+      });
     };
 
-    $scope.deleteThing = function(thing) {
-      $http.delete('/api/things/' + thing._id);
+    $scope.searchTweet = function(idx) {
+      $scope.book = $scope.books[idx];
+      if($scope.book.title === '') {
+        return;
+      }
+      $http.get('http://api.aasha.co.jp/twitter/books.php?text=' + $scope.book.title).
+      success(function(data){
+        $scope.tweet = data;
+        $scope.books = [];
+      });
     };
 
     $scope.$on('$destroy', function () {
